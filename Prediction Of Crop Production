@@ -1,0 +1,306 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+# Load dataset
+data = pd.read_csv(r"C:\Users\AbhishekGupta\Downloads\dataset\datafile (2).csv")
+
+# Check the column names to ensure they match with what you expect
+print(data.columns)
+
+# Split features and target variable
+X = data.drop(columns=['Crop             ', 'Production 2006-07', 'Production 2007-08',
+                       'Production 2008-09', 'Production 2009-10', 'Production 2010-11'])
+y = data['Production 2006-07']
+
+# Split data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Initialize and train the model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Predict on the test set
+predictions = model.predict(X_test)
+
+# Evaluate the model
+mse = mean_squared_error(y_test, predictions)
+print("Mean Squared Error:", mse)
+
+OUTPUT:
+
+Index(['Crop             ', 'Production 2006-07', 'Production 2007-08',
+       'Production 2008-09', 'Production 2009-10', 'Production 2010-11',
+       'Area 2006-07', 'Area 2007-08', 'Area 2008-09', 'Area 2009-10',
+       'Area 2010-11', 'Yield 2006-07', 'Yield 2007-08', 'Yield 2008-09',
+       'Yield 2009-10', 'Yield 2010-11'],
+      dtype='object')
+Mean Squared Error: 26.527436117265434
+
+
+Print(data.head())
+
+
+Crop               Production 2006-07  Production 2007-08  \
+0  Total Foodgrains               158.8               168.6   
+1              Rice               200.8               207.9   
+2             Wheat               131.6               136.4   
+3             Jowar               124.3               137.8   
+4             Bajra               136.4               161.5   
+
+   Production 2008-09  Production 2009-10  Production 2010-11  Area 2006-07  \
+0               171.3               159.4               178.9         128.5   
+1               213.3               191.6               206.4         168.5   
+2               140.1               140.3               150.8         115.0   
+3               126.0               116.5               121.8         120.7   
+4               143.9               105.4               167.9          94.5   
+
+   Area 2007-08  Area 2008-09  Area 2009-10  Area 2010-11  Yield 2006-07  \
+0         128.8         127.6         126.0         131.7          123.6   
+1         168.9         175.1         161.2         164.8          119.2   
+2         115.2         114.0         116.9         119.5          114.4   
+3         110.6         107.3         111.0         105.2          103.0   
+4          95.1          87.0          88.5          95.6          144.3   
+
+   Yield 2007-08  Yield 2008-09  Yield 2009-10  Yield 2010-11  
+0          130.9          134.3          126.5          135.9  
+1          123.1          121.8          118.9          125.2  
+2          118.4          122.8          120.0          126.3  
+3          124.6          117.4          105.0          115.8  
+4          169.7          165.4          119.0          175.8  
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+# Load dataset
+data = pd.read_csv(r"C:\Users\AbhishekGupta\Downloads\dataset\datafile (1).csv")
+
+print(data.columns)
+
+# Drop any columns that are not necessary for training the model
+columns_to_drop = ['Crop', 'State', 'Cost of Cultivation (`/Hectare) A2+FL', 'Cost of Cultivation (`/Hectare) C2', 'Yield (Quintal/ Hectare)']
+columns_to_drop = [col for col in columns_to_drop if col in data.columns]  # Filter out non-existent columns
+X = data.drop(columns=columns_to_drop)
+
+target_variable = 'Cost of Production (`/Quintal) C2'
+if target_variable not in data.columns:
+    raise KeyError(f"Target variable '{target_variable}' not found in the dataset.")
+
+y = data[target_variable]
+
+# Split data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Initialize and train the model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Predict on the test set
+predictions = model.predict(X_test)
+
+# Evaluate the model
+mse = mean_squared_error(y_test, predictions)
+print("Mean Squared Error:", mse)
+
+OUTPUT:
+
+Index(['Crop', 'State', 'Cost of Cultivation (`/Hectare) A2+FL',
+       'Cost of Cultivation (`/Hectare) C2',
+       'Cost of Production (`/Quintal) C2', 'Yield (Quintal/ Hectare) '],
+      dtype='object')
+Mean Squared Error: 4.762952819107216e-25
+print(data.head())
+Crop           State  Cost of Cultivation (`/Hectare) A2+FL  \
+0  ARHAR   Uttar Pradesh                                9794.05   
+1  ARHAR       Karnataka                               10593.15   
+2  ARHAR         Gujarat                               13468.82   
+3  ARHAR  Andhra Pradesh                               17051.66   
+4  ARHAR     Maharashtra                               17130.55   
+
+   Cost of Cultivation (`/Hectare) C2  Cost of Production (`/Quintal) C2  \
+0                            23076.74                            1941.55   
+1                            16528.68                            2172.46   
+2                            19551.90                            1898.30   
+3                            24171.65                            3670.54   
+4                            25270.26                            2775.80   
+
+   Yield (Quintal/ Hectare)   
+0                       9.83  
+1                       7.47  
+2                       9.59  
+3                       6.42  
+4                       8.72  
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+# Load dataset
+data = pd.read_csv(r"C:\Users\AbhishekGupta\Downloads\dataset\datafile (3).csv")
+
+# Check the column names to ensure they match with what you expect
+print(data.columns)
+
+# Drop any columns that are not necessary for training the model
+columns_to_drop = ['Crop', 'Variety', 'Season/ duration in days', 'Recommended Zone']
+X = data.drop(columns=columns_to_drop)
+y = data['variety']  # Assuming 'variety' is the target variable
+
+# Split data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Initialize and train the model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Predict on the test set
+predictions = model.predict(X_test)
+
+# Evaluate the model
+mse = mean_squared_error(y_test, predictions)
+print("Mean Squared Error:", mse)
+print(data.head())
+
+OUTPUT:
+
+Crop                     Variety Season/ duration in days  \
+0  Paddy  Chinsurah Rice (IET 19140)                   Medium   
+1  Paddy              (CNI 383-5-11)                      NaN   
+2  Paddy         IGKVR-1 (IET 19569)                Mid-early   
+3  Paddy         IGKVR-2 (IET 19795)                   Medium   
+4  Paddy        CR Dhan 401 (REETA)                   145-150   
+
+                                    Recommended Zone  Unnamed: 4  
+0  Andhra Pradesh, Tamil Nadu, Gujarat, Orissa, a...         NaN  
+1                                                NaN         NaN  
+2  Chhattisgarh, Madhya Pradesh and Orissa under ...         NaN  
+3  Chhattisgarh, Bihar and Orissa under  both irr...         NaN  
+4  Orissa, West Bengal, Tamil Nadu and Andhra Pra...         NaN
+
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.impute import SimpleImputer  # Import SimpleImputer for imputation
+
+# Load dataset
+data = pd.read_csv(r"C:\Users\AbhishekGupta\Downloads\dataset\datafile.csv")
+
+# Check the column names to ensure they match with what you expect
+print(data.columns)
+
+# Split features and target variable
+X = data.drop(columns=['Crop', '2004-05',  '2006-07', '2007-08', '2008-09', '2009-10', '2010-11', '2011-12' ])
+y = data['2004-05']
+
+# Impute missing values in X
+imputer = SimpleImputer(strategy='mean')  # You can change strategy as needed
+X_imputed = imputer.fit_transform(X)
+
+# Split data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X_imputed, y, test_size=0.2, random_state=42)
+
+# Initialize and train the model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Predict on the test set
+predictions = model.predict(X_test)
+
+print(data.head())
+
+
+OUTPUT:
+
+            Crop  2004-05  2005-06  2006-07  2007-08  2008-09  2009-10  \
+0            Rice    100.0    101.0     99.0    105.0    112.0    121.0   
+1           Wheat    100.0    101.0    112.0    115.0    117.0    127.0   
+2  Coarse Cereals    100.0    107.0    110.0    115.0    113.0    123.0   
+3          Pulses    100.0    108.0    134.0    124.0    124.0    146.0   
+4     Vegetables     100.0    109.0    103.0    118.0    113.0    124.0   
+
+   2010-11  2011-12  
+0    117.0    110.0  
+1    120.0    108.0  
+2    122.0    136.0  
+3    137.0    129.0  
+4    128.0    115.0  
+
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.impute import SimpleImputer  # Import SimpleImputer for imputation
+
+# Load dataset
+data = pd.read_csv(r"C:\Users\AbhishekGupta\Downloads\dataset\produce.csv")
+
+# Check the column names to ensure they match with what you expect
+print(data.columns)
+
+# Split features and target variable
+X = data.drop(columns=['3-2005', '3-2006', '3-2007', '3-2008', '3-2009', '3-2010', '3-2011', '3-2012' ])
+y = data['3-2006']
+
+# Impute missing values in X
+imputer = SimpleImputer(strategy='mean')  # You can change strategy as needed
+X_imputed = imputer.fit_transform(X)
+
+# Split data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X_imputed, y, test_size=0.2, random_state=42)
+
+# Initialize and train the model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Predict on the test set
+predictions = model.predict(X_test)  
+print(data.head())
+
+
+OUTPUT:
+
+
+
+0              Agricultural Production Foodgrains   
+1       Agricultural Production Foodgrains Kharif   
+2         Agricultural Production Foodgrains Rabi   
+3         Agricultural Production Foodgrains Rice   
+4  Agricultural Production Foodgrains Rice Kharif   
+
+                         Frequency    Unit   3-1993   3-1994   3-1995  \
+0  Annual, Ending mar Of Each Year  Ton mn      NaN      NaN      NaN   
+1  Annual, Ending mar Of Each Year  Ton mn      NaN      NaN      NaN   
+2  Annual, Ending mar Of Each Year  Ton mn      NaN      NaN      NaN   
+3  Annual, Ending mar Of Each Year  Ton mn      NaN      NaN      NaN   
+4  Annual, Ending mar Of Each Year  Ton mn      NaN      NaN      NaN   
+
+    3-1996   3-1997   3-1998   3-1999  ...     3-2005    3-2006     3-2007  \
+0      NaN      NaN      NaN      NaN  ...  198.36282  208.6016  217.28212   
+1      NaN      NaN      NaN      NaN  ...  103.30942  109.8734  110.57622   
+2      NaN      NaN      NaN      NaN  ...   95.05340   98.7282  106.70590   
+3      NaN      NaN      NaN      NaN  ...   83.13170   91.7934   93.35530   
+4      NaN      NaN      NaN      NaN  ...   72.23000   78.2719   80.17080   
+
+      3-2008      3-2009      3-2010      3-2011      3-2012   3-2013  \
+0  230.77504  234.466177  218.107372  244.491809  259.286253   257.13   
+1  120.95724  118.138577  103.954032  120.853191  131.274812   128.07   
+2  109.81780  116.327600  114.153340  123.638618  128.011441   129.06   
+3   96.69290   99.182500   89.092901   95.979819  105.301100   105.24   
+4   82.65940   84.908200   75.916510   80.651241   92.780700    92.37   
+
+     3-2014  
+0  264.3806  
+1  129.3686  
+2  135.0120  
+3  106.2872  
+4   92.0093  
+
+[5 rows x 25 columns]
+
+
+
